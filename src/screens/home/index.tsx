@@ -1,18 +1,40 @@
 import { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
-import { styles } from "./home.styles";
+import { Participant } from "../../components/participant";
+import { styles } from "./styles";
+
+type CreatePartipant = {
+  id: string;
+  name: string;
+};
 
 export const Home = () => {
   const [participantName, setParticipantName] = useState<string>("");
-  const [participants, setParticipants] = useState<string[]>([]);
+  const [participants, setParticipants] = useState<CreatePartipant[]>([]);
 
   const handleTextInputChange = (text: string) => {
     setParticipantName(text);
   };
 
   const handleParticipantAdd = () => {
-    setParticipants((prev) => [...prev, participantName]);
+    const lastParticipant = participants.findLast((partipant) => partipant.id);
+
+    const lastId = Number(lastParticipant?.id!) + 1;
+
+    const newPartipant = {
+      id: lastId ? String(lastId) : "1",
+      name: participantName,
+    };
+
+    setParticipants((prev) => [...prev, newPartipant]);
     setParticipantName("");
+  };
+
+  const handlePartipantDelete = (participantId: string) => {
+    const deletePartipant = participants.filter(
+      (participant) => participant.id !== participantId
+    );
+    setParticipants(deletePartipant);
   };
 
   return (
@@ -35,7 +57,11 @@ export const Home = () => {
       </View>
 
       {participants.map((participant) => (
-        <Text key={participant} style={styles.participantsList}>- {participant}</Text>
+        <Participant
+          key={participant.name}
+          participant={participant}
+          onDeleteParticipant={handlePartipantDelete}
+        />
       ))}
     </View>
   );
