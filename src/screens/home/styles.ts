@@ -17,35 +17,41 @@ export const styles = StyleSheet.create({
     fontSize: 16,
   },
   form: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 10,
     marginTop: 36,
-    marginBottom: 42
+    marginBottom: 42,
   },
   input: {
-    backgroundColor: '#1f1e25',
+    backgroundColor: "#1f1e25",
     height: 56,
     borderRadius: 5,
     flex: 1,
-    color: '#fff',
+    color: "#fff",
     padding: 16,
-    fontSize: 16
+    fontSize: 16,
   },
-  button : {
-    backgroundColor: '#31cf67',
+  button: {
+    backgroundColor: "#31cf67",
     width: 56,
     height: 56,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 5,
   },
   buttonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 24,
   },
   participantsList: {
     color: "#fff",
-    marginBottom: 5
-  }
+    marginBottom: 5,
+  },
+  listEmptyText: {
+    color: "#fff",
+    fontSize: 14,
+    textAlign: "center",
+    lineHeight: 24,
+  },
 });
