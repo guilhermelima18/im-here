@@ -8,16 +8,12 @@ import {
   Alert,
 } from "react-native";
 import { Participant } from "../../components/participant";
+import { Partipant } from "../../types/participant";
 import { styles } from "./styles";
 
-type CreatePartipant = {
-  id: string;
-  name: string;
-};
-
 export const Home = () => {
+  const [participants, setParticipants] = useState<Partipant[]>([]);
   const [participantName, setParticipantName] = useState<string>("");
-  const [participants, setParticipants] = useState<CreatePartipant[]>([]);
 
   const handleTextInputChange = (text: string) => {
     setParticipantName(text);
@@ -30,12 +26,12 @@ export const Home = () => {
         participant.name.toLowerCase() === participantName.toLowerCase()
     );
 
-    const lastId = Number(lastParticipant?.id!) + 1;
-
     if (participantAlreadyExists) {
       setParticipantName("");
       return Alert.alert("Opss!", "Notamos que esse participante já existe.");
     }
+
+    const lastId = Number(lastParticipant?.id!) + 1;
 
     const newPartipant = {
       id: lastId ? String(lastId) : "1",
@@ -46,19 +42,21 @@ export const Home = () => {
     setParticipantName("");
   };
 
-  const handlePartipantDelete = (participantId: string) => {
+  const handlePartipantDelete = (participant: Partipant) => {
+    const participantId = participant.id;
+
     Alert.alert(
       "Remover",
-      `Deseja realmente remover o participante ${participantId}?`,
+      `Deseja realmente remover o participante ${participant.name}?`,
       [
         {
           text: "Sim",
           onPress: () => {
-            const deletePartipant = participants.filter(
+            const deleteParticipant = participants.filter(
               (participant) => participant.id !== participantId
             );
 
-            setParticipants(deletePartipant);
+            setParticipants(deleteParticipant);
           },
         },
         { text: "Não", style: "cancel" },
@@ -68,8 +66,8 @@ export const Home = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.eventName}>Nome do evento</Text>
-      <Text style={styles.eventData}>Sexta, 4 de Novembro de 2022</Text>
+      <Text style={styles.eventName}>Casamento Guilherme e Jéssica</Text>
+      <Text style={styles.eventData}>Sábado, 11 de Novembro de 2023</Text>
 
       <View style={styles.form}>
         <TextInput

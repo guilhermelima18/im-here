@@ -1,12 +1,10 @@
 import { Text, TouchableOpacity, View } from "react-native";
+import { Partipant } from "../../types/participant";
 import { styles } from "./styles";
 
 type ParticipantProps = {
-  participant: {
-    id: string;
-    name: string;
-  };
-  onDeleteParticipant: (partipantId: string) => void;
+  participant: Partipant;
+  onDeleteParticipant: (partipant: Partipant) => void;
 };
 
 export const Participant = ({
@@ -18,7 +16,7 @@ export const Participant = ({
       <Text style={styles.name}>{participant.name}</Text>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => onDeleteParticipant(participant.id)}
+        onPress={() => onDeleteParticipant(participant)}
       >
         <Text style={styles.buttonText}>-</Text>
       </TouchableOpacity>
